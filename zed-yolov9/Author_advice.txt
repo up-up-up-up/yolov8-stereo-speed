@@ -1,5 +1,5 @@
 
-#双目测距运行yolov9-stereo.py文件即可
 
+#调用sdk测距运行zed-yolov9.py文件即可
 
 具体操作步骤见播客主页：https://blog.csdn.net/qq_45077760
