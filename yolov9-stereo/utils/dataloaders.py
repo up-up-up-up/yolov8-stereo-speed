@@ -361,6 +361,10 @@ class LoadStreams:
                 assert not is_kaggle(), '--source 0 webcam unsupported on Kaggle. Rerun command in a local environment.'
             cap = cv2.VideoCapture(s)
             assert cap.isOpened(), f'{st}Failed to open {s}'
+            imageWidth = 2560
+            imageHeight = 720
+            cap.set(cv2.CAP_PROP_FRAME_WIDTH, imageWidth)
+            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, imageHeight)
             w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
             h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
             fps = cap.get(cv2.CAP_PROP_FPS)  # warning: may return 0 or nan

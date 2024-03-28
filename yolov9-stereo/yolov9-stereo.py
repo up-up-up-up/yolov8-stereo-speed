@@ -165,33 +165,34 @@ def run(
                                 c = points_3d[int(y_0), int(x_0), 2] / 1000
                                 distance = ((a ** 2 + b ** 2 + c ** 2) ** 0.5)
 
-
                                 # distance = []
                                 # distance.append(dis)
                                 if (distance != 0):  ## Add bbox to image
                                     label = f'{names[int(cls)]} {conf:.2f} '
                                     annotator.box_label(xyxy, label, color=colors(c, True))
-
                                     print('点 (%d, %d) 的 %s 距离左摄像头的相对距离为 %0.2f m' % (x_center, y_center, label, distance))
                                     text_dis_avg = "dis:%0.2fm" % distance
                                     # only put dis on frame
                                     cv2.putText(im0, text_dis_avg, (int(x2 + 5), int(y1 + 30)),
                                                 cv2.FONT_ITALIC, 1.2,
                                                 (0, 255, 255), 3)
-
-
                         if save_crop:
                             save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
 
             # Stream results
             im0 = annotator.result()
             if view_img:
-                if platform.system() == 'Linux' and p not in windows:
-                    windows.append(p)
-                    cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)  # allow window resize (Linux)
-                    cv2.resizeWindow(str(p), im0.shape[1], im0.shape[0])
-                cv2.imshow(str(p), im0)
-                cv2.waitKey(1)  # 1 millisecond
+                #if platform.system() == 'Linux' and p not in windows:
+                    # windows.append(p)
+                    # cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)  # allow window resize (Linux)
+                    # cv2.resizeWindow(str(p), 1280, 480)
+                cv2.namedWindow("Webcam", cv2.WINDOW_NORMAL)
+                cv2.resizeWindow("Webcam", 1280, 480)
+                cv2.moveWindow("Webcam", 0, 100)
+                cv2.imshow("Webcam", im0)
+                cv2.waitKey(1)
+                # cv2.imshow(str(p), im0)
+                # cv2.waitKey(1)  # 1 millisecond
 
             # Save results (image with detections)
             if save_img:
@@ -228,7 +229,7 @@ def run(
 def parse_opt():
     parser = argparse.ArgumentParser()
     parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'gelan-c-det.pt', help='model path or triton URL')
-    parser.add_argument('--source', type=str, default=ROOT / 'data/images/a1.mp4', help='file/dir/URL/glob/screen/0(webcam)')
+    parser.add_argument('--source', type=str, default=ROOT / '0', help='file/dir/URL/glob/screen/0(webcam)')
     parser.add_argument('--data', type=str, default=ROOT / 'data/coco128.yaml', help='(optional) dataset.yaml path')
     parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[640], help='inference size h,w')
     parser.add_argument('--conf-thres', type=float, default=0.25, help='confidence threshold')
