@@ -1,0 +1,7 @@
+ 
+# 双目测距运行yolov8-stereo.py文件即可
+
+# 测量速度运行stereo-speed.py文件
+
+
+具体操作步骤见播客主页：https://blog.csdn.net/qq_45077760
